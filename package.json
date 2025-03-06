@@ -1,0 +1,20 @@
+{
+  "name": "team1_movingdiv",
+  "version": "1.0.0",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kdt-ful-class-three-group/TEAM1_MovingDiv.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kdt-ful-class-three-group/TEAM1_MovingDiv/issues"
+  },
+  "homepage": "https://github.com/kdt-ful-class-three-group/TEAM1_MovingDiv#readme",
+  "description": ""
+}
