@@ -3,16 +3,20 @@
   margin: 0;
 }
 
+.h-1rem {height: 1rem;}
 .h-2rem {height: 2rem;}
 .h-5_5rem {height: 5.5rem;}
 .h-25rem {height: 25rem;}
 .h-10rem {height: 10rem;}
 .h-44rem {height: 44rem;}
+.w-1rem {width: 1rem;}
 .w-6rem {width: 6rem;}
 .w-19rem {width: 19rem;}
 .d-block {display: block;}
 .d-none {display: none;}
 .d-flex {display: flex;}
+.d-grid {display: grid;}
+.grid-column-17 {grid-template-columns: repeat(17, 1fr);}
 .flex-wrap {flex-wrap: wrap;}
 .flex-column {flex-direction: column;}
 .j-center {justify-content: center;}
@@ -36,6 +40,7 @@
 .color-white {color: #FFFFFF;}
 .font-1_5rem {font-size: 1.5rem;}
 .border-none {border: none;}
+.border-1px-dark {border: 1px solid #575252;}
 .cursor-pointer{cursor: pointer;}
 
 button:hover {
