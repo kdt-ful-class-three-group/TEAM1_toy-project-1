@@ -10,6 +10,8 @@
 .h-44rem {height: 44rem;}
 .w-6rem {width: 6rem;}
 .w-19rem {width: 19rem;}
+.d-block {display: block;}
+.d-none {display: none;}
 .d-flex {display: flex;}
 .flex-wrap {flex-wrap: wrap;}
 .flex-column {flex-direction: column;}
