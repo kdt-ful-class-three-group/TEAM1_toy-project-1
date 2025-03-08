@@ -6,6 +6,5 @@ startBtn.addEventListener('click', () => {
   const gameDisplay = articles[2];
   
   descDisplay.style.display = 'none';
-  gameDisplay.classList.remove('d-none');
-  gameDisplay.classList.add('d-block');
+  gameDisplay.classList.replace('d-none', 'd-grid');
 });
