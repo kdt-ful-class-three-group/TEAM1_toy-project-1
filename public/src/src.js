@@ -1,5 +1,5 @@
-const startBtn = document.getElementsByTagName('button')[0];
+const startBtn = document.querySelector('button');
 
 startBtn.addEventListener('click', () => {
-  console.log('클릭');
-})
+  const articles = document.querySelectorAll('article');
+});
