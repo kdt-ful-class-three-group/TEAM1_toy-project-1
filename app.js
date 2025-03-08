@@ -1,9 +1,11 @@
 import express from 'express';
+import path from 'path'
 
+const __dirname = path.resolve();
 const app = express();
 
 app.get('/', (req, res) => {
-  console.log("접속");
+  res.sendFile(__dirname + '/views/index.html');
 })
 
 app.listen(3000, () => {
