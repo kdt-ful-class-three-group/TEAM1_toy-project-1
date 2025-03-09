@@ -32,9 +32,11 @@ startBtn.addEventListener('click', () => {
   // * 366번째 div가 중앙 하단에 배치 되므로 초기에 시작 버튼 클릭시 화면이 표시될 때, 중앙 하단의 div가 초록색으로 표시되게 한다.
 
   let count = 365
-  document.addEventListener('keydown', () => {
+  document.addEventListener('keydown', (event) => {
+    if(event.key === 'ArrowRight') {
     gameDisplay.querySelectorAll('div')[count].classList.remove('bg-green');
     gameDisplay.querySelectorAll('div')[count + 1].classList.add('bg-green');
     count++
-  })
+    }
+  });
 });
