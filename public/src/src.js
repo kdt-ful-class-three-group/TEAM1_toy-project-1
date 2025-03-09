@@ -2,6 +2,8 @@
 const startBtn = document.querySelector('button');
 //* article태그들을 모두 받아와서 articles에 담아줌
 const articles = document.querySelectorAll('article');
+//* 시간을 표시하는 article요소를 timeDisplay에 담아줌
+const timeDisplay = articles[0];
 //* 설명을 표시하는 article요소를 descDisplay에 담아줌 
 const descDisplay = articles[1];
 //* 게임을 표시하는 article요소를 gameDisplay에 담아줌줌
@@ -27,3 +29,9 @@ startBtn.addEventListener('click', () => {
   gameDisplay.classList.replace('d-none', 'd-grid');
   makeGrid();
 });
+
+let miliSec = 0;
+setInterval(() => {
+  const display = timeDisplay.childNodes[3];
+  display.textContent = `${Number(miliSec += 1)/100}`;
+}, 10);
