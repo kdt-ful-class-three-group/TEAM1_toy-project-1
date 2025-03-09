@@ -43,6 +43,16 @@ startBtn.addEventListener('click', () => {
           gameDisplay.querySelectorAll('div')[count].classList.remove('bg-green');
           gameDisplay.querySelectorAll('div')[count - 1].classList.add('bg-green');
           count--}
-      }
+      } else if(event.key === 'd') {
+        if(count + 1 < 374) {
+          gameDisplay.querySelectorAll('div')[count].classList.remove('bg-green');
+          gameDisplay.querySelectorAll('div')[count + 1].classList.add('bg-green');
+          count++}
+      } else if(event.key === 'a') {
+        if(count - 1 > 356) {
+          gameDisplay.querySelectorAll('div')[count].classList.remove('bg-green');
+          gameDisplay.querySelectorAll('div')[count - 1].classList.add('bg-green');
+          count--}
+      } 
   });
 });
