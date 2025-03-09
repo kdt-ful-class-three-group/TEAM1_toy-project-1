@@ -64,5 +64,8 @@ function makeRainCloud() {
   let cloudTime = setInterval(() => {
     rainCloud = Math.floor(Math.random() * 17);
     gameDisplay.childNodes[rainCloud].classList.add('bg-gray');
+    setTimeout(() => {
+      gameDisplay.childNodes[rainCloud].classList.remove('bg-gray');
+    }, 500);
   }, 1000);
 }
