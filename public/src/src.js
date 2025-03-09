@@ -6,7 +6,7 @@ const articles = document.querySelectorAll('article');
 const timeDisplay = articles[0];
 //* 설명을 표시하는 article요소를 descDisplay에 담아줌 
 const descDisplay = articles[1];
-//* 게임을 표시하는 article요소를 gameDisplay에 담아줌줌
+//* 게임을 표시하는 article요소를 gameDisplay에 담아줌
 const gameDisplay = articles[2];
 //* clearInterval메서드 사용을 위한 setInterval에 이름을 지어줌
 let startTime = 0;
@@ -43,7 +43,7 @@ startBtn.addEventListener('click', () => {
  */
 const timer = {
   /**
-   * @description 0.00초로 타이머 동작을 시작하는 메서드
+   * @description 0.00초로 타이머 동작
    */
   start : function startTimer() {
     let miliSec = 0;
@@ -54,13 +54,13 @@ const timer = {
   },
   /**
    * @param {*} timer 타이머 동작 시 만들어진 interval 변수 명
-   * @description 타이머 동작을 종료하는 메서드
+   * @description 타이머 동작 종료
    */
   close : function closeTimer(timer) {
     clearInterval(timer);
   },
   /**
-   * @description 비구름 생성 메서드
+   * @description 비구름 생성
    */
   cloud : function makeRainCloud() {
     let rainCloud = 0;
@@ -75,7 +75,7 @@ const timer = {
   },
   /**
    * @param {*} rainCloudIndex 비구름 번호
-   * @description 비구름을 기준으로 빗방울을 생성
+   * @description 비구름을 기준으로 빗방울 생성
    */
   rain : function makeRain(rainCloudIndex) {
     let rainIndex = rainCloudIndex;
