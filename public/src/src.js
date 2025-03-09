@@ -39,6 +39,7 @@ startBtn.addEventListener('click', () => {
  * @method start 0.00초로 타이머 동작을 시작하는 메서드
  * @method close 타이머 동작을 종료하는 메서드
  * @method cloud 비구름 동작 메서드
+ * @method rain 빗방울 생성 메서드
  */
 const timer = {
   /**
@@ -69,19 +70,22 @@ const timer = {
       setTimeout(() => {
         gameDisplay.childNodes[rainCloud].classList.remove('bg-gray');
       }, 500);
-      makeRain(rainCloud);
+      timer.rain(rainCloud);
     }, 1000);
   },
-}
-
-function makeRain(rainCloudIndex) {
-  let rainIndex = rainCloudIndex;
-  rainTime = setInterval(() => {
-    rainIndex += 17;
-    rain = gameDisplay.childNodes[rainIndex];
-    gameDisplay.childNodes[rainIndex].classList.add('bg-gray');
-    setTimeout(() => {
-      gameDisplay.childNodes[rainIndex].classList.remove('bg-gray');
-    }, 500);
-  }, 1000);
+  /**
+   * @param {*} rainCloudIndex 비구름 번호
+   * @description 비구름을 기준으로 빗방울을 생성
+   */
+  rain : function makeRain(rainCloudIndex) {
+    let rainIndex = rainCloudIndex;
+    rainTime = setInterval(() => {
+      rainIndex += 17;
+      rain = gameDisplay.childNodes[rainIndex];
+      gameDisplay.childNodes[rainIndex].classList.add('bg-gray');
+      setTimeout(() => {
+        gameDisplay.childNodes[rainIndex].classList.remove('bg-gray');
+      }, 500);
+    }, 1000);
+  },
 }
