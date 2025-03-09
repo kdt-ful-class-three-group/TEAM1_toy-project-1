@@ -32,7 +32,14 @@ startBtn.addEventListener('click', () => {
   timer.start();
 });
 
+/**
+ * @method start 0.00초로 타이머 동작을 시작하는 메서드
+ * @method close 타이머 동작을 종료하는 메서드
+ */
 const timer = {
+  /**
+   * @description 0.00초로 타이머 동작을 시작하는 메서드
+   */
   start : function startTimer() {
     let miliSec = 0;
     startTime = setInterval(() => {
@@ -40,6 +47,10 @@ const timer = {
       display.textContent = `${Number(miliSec += 1)/100}`;
     }, 10);
   },
+  /**
+   * @param {*} timer 타이머 동작 시 만들어진 interval 변수 명
+   * @description 타이머 동작을 종료하는 메서드
+   */
   close : function closeTimer(timer) {
     clearInterval(timer);
   },
