@@ -34,13 +34,15 @@ startBtn.addEventListener('click', () => {
   let count = 365
   document.addEventListener('keydown', (event) => {
     if(event.key === 'ArrowRight') {
-    gameDisplay.querySelectorAll('div')[count].classList.remove('bg-green');
-    gameDisplay.querySelectorAll('div')[count + 1].classList.add('bg-green');
-    count++
-    } else if(event.key === 'ArrowLeft') {
-      gameDisplay.querySelectorAll('div')[count].classList.remove('bg-green');
-      gameDisplay.querySelectorAll('div')[count - 1].classList.add('bg-green');
-      count--
-    }
+      if(count + 1 < 374) {
+        gameDisplay.querySelectorAll('div')[count].classList.remove('bg-green');
+        gameDisplay.querySelectorAll('div')[count + 1].classList.add('bg-green');
+        count++}
+      } else if(event.key === 'ArrowLeft') {
+        if(count - 1 > 356) {
+          gameDisplay.querySelectorAll('div')[count].classList.remove('bg-green');
+          gameDisplay.querySelectorAll('div')[count - 1].classList.add('bg-green');
+          count--}
+      }
   });
 });
