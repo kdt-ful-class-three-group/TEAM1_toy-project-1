@@ -10,6 +10,8 @@ const descDisplay = articles[1];
 const gameDisplay = articles[2];
 //* clearInterval메서드 사용을 위한 setInterval에 이름을 지어줌
 let startTime = 0;
+let cloudTime = 0;
+
 /**
  * @description 게임표시 부분에 격자로 div요소 추가하는 함수
  * @description 새로운 div요소를 만들고 해당 div요소에 클래스를 추가하며 div요소를 게임 표시 부분에 추가한다.
@@ -30,6 +32,7 @@ startBtn.addEventListener('click', () => {
   gameDisplay.classList.replace('d-none', 'd-grid');
   makeGrid();
   timer.start();
+  makeRainCloud();
 });
 
 /**
@@ -54,4 +57,12 @@ const timer = {
   close : function closeTimer(timer) {
     clearInterval(timer);
   },
+}
+
+function makeRainCloud() {
+  let rainCloud = 0;
+  let cloudTime = setInterval(() => {
+    rainCloud = Math.floor(Math.random() * 17);
+    gameDisplay.childNodes[rainCloud].classList.add('bg-gray');
+  }, 1000);
 }
