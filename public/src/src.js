@@ -2,10 +2,15 @@
 const startBtn = document.querySelector('button');
 //* article태그들을 모두 받아와서 articles에 담아줌
 const articles = document.querySelectorAll('article');
+//* 시간을 표시하는 article요소를 timeDisplay에 담아줌
+const timeDisplay = articles[0];
 //* 설명을 표시하는 article요소를 descDisplay에 담아줌 
 const descDisplay = articles[1];
-//* 게임을 표시하는 article요소를 gameDisplay에 담아줌줌
+//* 게임을 표시하는 article요소를 gameDisplay에 담아줌
 const gameDisplay = articles[2];
+//* clearInterval메서드 사용을 위한 setInterval에 이름을 지어줌
+let startTime = 0;
+let cloudTime = 0;
 
 /**
  * @description 게임표시 부분에 격자로 div요소 추가하는 함수
@@ -26,6 +31,64 @@ startBtn.addEventListener('click', () => {
   //* 게임표시 article부분의 display none의 스타일을 grid 스타일로 변경한다.
   gameDisplay.classList.replace('d-none', 'd-grid');
   makeGrid();
+  timer.start();
+  timer.cloud();
+});
+
+/**
+ * @method start 0.00초로 타이머 동작을 시작하는 메서드
+ * @method close 타이머 동작을 종료하는 메서드
+ * @method cloud 비구름 동작 메서드
+ * @method rain 빗방울 생성 메서드
+ */
+const timer = {
+  /**
+   * @description 0.00초로 타이머 동작
+   */
+  start : function startTimer() {
+    let miliSec = 0;
+    startTime = setInterval(() => {
+      const display = timeDisplay.childNodes[3];
+      display.textContent = `${Number(miliSec += 1)/100}`;
+    }, 10);
+  },
+  /**
+   * @param {*} timer 타이머 동작 시 만들어진 interval 변수 명
+   * @description 타이머 동작 종료
+   */
+  close : function closeTimer(timer) {
+    clearInterval(timer);
+  },
+  /**
+   * @description 비구름 생성
+   */
+  cloud : function makeRainCloud() {
+    let rainCloud = 0;
+    cloudTime = setInterval(() => {
+      rainCloud = Math.floor(Math.random() * 17);
+      gameDisplay.childNodes[rainCloud].classList.add('bg-gray');
+      setTimeout(() => {
+        gameDisplay.childNodes[rainCloud].classList.remove('bg-gray');
+      }, 500);
+      timer.rain(rainCloud);
+    }, 1000);
+  },
+  /**
+   * @param {*} rainCloudIndex 비구름 번호
+   * @description 비구름을 기준으로 빗방울 생성
+   */
+  rain : function makeRain(rainCloudIndex) {
+    let rainIndex = rainCloudIndex;
+    rainTime = setInterval(() => {
+      rainIndex += 17;
+      rain = gameDisplay.childNodes[rainIndex];
+      gameDisplay.childNodes[rainIndex].classList.add('bg-gray');
+      setTimeout(() => {
+        gameDisplay.childNodes[rainIndex].classList.remove('bg-gray');
+      }, 500);
+    }, 1000);
+  },
+}
   // * gameDisplay안의 div들을 전부 불러와서, player에 담아줌.
   const player = gameDisplay.querySelectorAll('div');
   // * 366번째 div가 중앙 하단에 배치 되므로 초기에 시작 버튼 클릭시 화면이 표시될 때, 중앙 하단의 div가 초록색으로 표시되게 한다.

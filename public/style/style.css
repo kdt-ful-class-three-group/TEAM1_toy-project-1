@@ -10,6 +10,7 @@
 .h-10rem {height: 10rem;}
 .h-44rem {height: 44rem;}
 .w-1rem {width: 1rem;}
+.w-4rem {width: 4rem;}
 .w-6rem {width: 6rem;}
 .w-19rem {width: 19rem;}
 .d-block {display: block;}
@@ -43,6 +44,7 @@
 .border-none {border: none;}
 .border-1px-dark {border: 1px solid #575252;}
 .cursor-pointer{cursor: pointer;}
+.text-right {text-align: right;}
 
 button:hover {
   background-color: #575252;
