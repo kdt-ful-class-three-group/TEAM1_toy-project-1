@@ -37,6 +37,10 @@ startBtn.addEventListener('click', () => {
     gameDisplay.querySelectorAll('div')[count].classList.remove('bg-green');
     gameDisplay.querySelectorAll('div')[count + 1].classList.add('bg-green');
     count++
+    } else if(event.key === 'ArrowLeft') {
+      gameDisplay.querySelectorAll('div')[count].classList.remove('bg-green');
+      gameDisplay.querySelectorAll('div')[count - 1].classList.add('bg-green');
+      count--
     }
   });
 });
