@@ -26,4 +26,8 @@ startBtn.addEventListener('click', () => {
   //* 게임표시 article부분의 display none의 스타일을 grid 스타일로 변경한다.
   gameDisplay.classList.replace('d-none', 'd-grid');
   makeGrid();
+  const player = gameDisplay.querySelectorAll('div');
+  // * gameDisplay안의 div들을 전부 불러와서, player에 담아줌.
+  player[365].classList.add('bg-green');
+  // * 366번째 div가 중앙 하단에 배치 되므로 초기에 시작 버튼 클릭시 화면이 표시될 때, 중앙 하단의 div가 초록색으로 표시되게 한다.
 });
