@@ -32,12 +32,13 @@ startBtn.addEventListener('click', () => {
   gameDisplay.classList.replace('d-none', 'd-grid');
   makeGrid();
   timer.start();
-  makeRainCloud();
+  timer.cloud();
 });
 
 /**
  * @method start 0.00초로 타이머 동작을 시작하는 메서드
  * @method close 타이머 동작을 종료하는 메서드
+ * @method cloud 비구름 동작 메서드
  */
 const timer = {
   /**
@@ -57,15 +58,17 @@ const timer = {
   close : function closeTimer(timer) {
     clearInterval(timer);
   },
-}
-
-function makeRainCloud() {
-  let rainCloud = 0;
-  let cloudTime = setInterval(() => {
-    rainCloud = Math.floor(Math.random() * 17);
-    gameDisplay.childNodes[rainCloud].classList.add('bg-gray');
-    setTimeout(() => {
-      gameDisplay.childNodes[rainCloud].classList.remove('bg-gray');
-    }, 500);
-  }, 1000);
+  /**
+   * @description 비구름 생성 메서드
+   */
+  cloud : function makeRainCloud() {
+    let rainCloud = 0;
+    cloudTime = setInterval(() => {
+      rainCloud = Math.floor(Math.random() * 17);
+      gameDisplay.childNodes[rainCloud].classList.add('bg-gray');
+      setTimeout(() => {
+        gameDisplay.childNodes[rainCloud].classList.remove('bg-gray');
+      }, 500);
+    }, 1000);
+  },
 }
