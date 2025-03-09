@@ -8,7 +8,8 @@ const timeDisplay = articles[0];
 const descDisplay = articles[1];
 //* 게임을 표시하는 article요소를 gameDisplay에 담아줌줌
 const gameDisplay = articles[2];
-
+//* clearInterval메서드 사용을 위한 setInterval에 이름을 지어줌
+let startTime = 0;
 /**
  * @description 게임표시 부분에 격자로 div요소 추가하는 함수
  * @description 새로운 div요소를 만들고 해당 div요소에 클래스를 추가하며 div요소를 게임 표시 부분에 추가한다.
@@ -28,10 +29,18 @@ startBtn.addEventListener('click', () => {
   //* 게임표시 article부분의 display none의 스타일을 grid 스타일로 변경한다.
   gameDisplay.classList.replace('d-none', 'd-grid');
   makeGrid();
+  timer.start();
 });
 
-let miliSec = 0;
-setInterval(() => {
-  const display = timeDisplay.childNodes[3];
-  display.textContent = `${Number(miliSec += 1)/100}`;
-}, 10);
+const timer = {
+  start : function startTimer() {
+    let miliSec = 0;
+    startTime = setInterval(() => {
+      const display = timeDisplay.childNodes[3];
+      display.textContent = `${Number(miliSec += 1)/100}`;
+    }, 10);
+  },
+  close : function closeTimer(timer) {
+    clearInterval(timer);
+  },
+}
