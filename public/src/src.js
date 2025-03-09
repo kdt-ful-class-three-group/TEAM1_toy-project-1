@@ -69,6 +69,19 @@ const timer = {
       setTimeout(() => {
         gameDisplay.childNodes[rainCloud].classList.remove('bg-gray');
       }, 500);
+      makeRain(rainCloud);
     }, 1000);
   },
+}
+
+function makeRain(rainCloudIndex) {
+  let rainIndex = rainCloudIndex;
+  rainTime = setInterval(() => {
+    rainIndex += 17;
+    rain = gameDisplay.childNodes[rainIndex];
+    gameDisplay.childNodes[rainIndex].classList.add('bg-gray');
+    setTimeout(() => {
+      gameDisplay.childNodes[rainIndex].classList.remove('bg-gray');
+    }, 500);
+  }, 1000);
 }
