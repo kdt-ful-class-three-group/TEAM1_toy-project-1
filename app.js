@@ -19,7 +19,10 @@ app.get('/', (req, res) => {
 
 app.post('/data', (req, res) => {
   req.on('data', (data) => {
-    console.log(data.toString());
+    let postData = data.toString();
+    let ParData = qs.parse(postData);
+    console.log(ParData);
+
   })
   req.on('end', () => {
     res.sendFile(__dirname + '/views/index.html');
