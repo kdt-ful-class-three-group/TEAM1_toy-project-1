@@ -14,10 +14,13 @@ const gameOverDisplay = articles[3];
 let startTime = 0;
 let cloudTime = 0;
 //* count의 값을 받아온다. 사용자의 위치를 알기 위함
-let userIndex = 0;
+let userIndex = 365;
 //* 피한 개수
 let avoidCount = 0;
-
+let rainSpeed = 0;
+//* 비의 속도를 조절 speed1 : 생성되는 속도 speed2 : 사라지는 속도
+let speed1 = 300;
+let speed2 = 280;
 /**
  * @description 게임표시 부분에 격자로 div요소 추가하는 함수
  * @description 새로운 div요소를 만들고 해당 div요소에 클래스를 추가하며 div요소를 게임 표시 부분에 추가한다.
@@ -25,7 +28,7 @@ let avoidCount = 0;
 function makeGrid() {
   for (let i = 0; i < 374; i++) {
     const div = document.createElement('div');
-    div.classList.add('w-1rem', 'h-1rem', 'border-1px-dark');
+    div.classList.add('w-1rem', 'h-1rem');
     gameDisplay.append(div);
   }
 }
@@ -161,15 +164,16 @@ const timer = {
       gameDisplay.childNodes[rainCloud].classList.add('bg-gray');
       setTimeout(() => {
         gameDisplay.childNodes[rainCloud].classList.remove('bg-gray');
-      }, 500);
+      }, 130);
       timer.rain(rainCloud);
-    }, 1000);
+    }, 150);
   },
   /**
    * @param {*} rainCloudIndex 비구름 번호
    * @description 비구름을 기준으로 빗방울 생성
    */
   rain: function makeRain(rainCloudIndex) {
+    rainSpeed = Math.random();
     let rainIndex = rainCloudIndex;
     rainTime = setInterval(() => {
       rainIndex += 17;
@@ -179,8 +183,8 @@ const timer = {
         bumpCheck(rainIndex, userIndex);
         setTimeout(() => {
           gameDisplay.childNodes[rainIndex].classList.remove('bg-gray');
-        }, 500);
+        }, speed2);
       }
-    }, 1000);
+    }, speed1);
   },
 }
