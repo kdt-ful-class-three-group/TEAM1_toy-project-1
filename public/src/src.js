@@ -49,7 +49,7 @@ startBtn.addEventListener('click', () => {
   document.addEventListener('keydown', (event) => {
     clearTimeout(gameOver);
     // * 만일 눌리는 키가 오른쪽 화살표라면
-    if (event.key === 'ArrowRight') {
+    if (event.key === 'ArrowRight'||event.key === 'd') {
       // * count + 1의 범위를 374 보다 적게 지정해준다. => 여기서 374는 div의 총 갯수를 의미한다. 
       // * 이벤트 범위가 div바깥으로 나가지 않게 조절.
       if (count + 1 < 374) {
@@ -63,7 +63,7 @@ startBtn.addEventListener('click', () => {
     }
 
     // * 만일 눌리는 키가 왼쪽 화살표라면
-    else if (event.key === 'ArrowLeft') {
+    else if (event.key === 'ArrowLeft'||event.key === 'a') {
       // * count - 1의 범위를 356 보다 크게 지정해준다. => 여기서 356는 div의 마지막 줄에서 두번째, 마지막 칸의 순서이다. 
       // * 이벤트 범위가 div바깥으로 나가지 않게 조절.
       if (count - 1 > 356) {
@@ -72,24 +72,6 @@ startBtn.addEventListener('click', () => {
         // * 그 다음 순서의 div에 bg-green 클래스를 add한다.
         gameDisplay.querySelectorAll('div')[count - 1].classList.add('bg-green');
         // * count는 점점 감소한다.
-        count--
-      }
-    }
-
-    // * 만일 눌리는 키가 d라면
-    else if (event.key === 'd') {
-      if (count + 1 < 374) {
-        gameDisplay.querySelectorAll('div')[count].classList.remove('bg-green');
-        gameDisplay.querySelectorAll('div')[count + 1].classList.add('bg-green');
-        count++
-      }
-    }
-
-    // * 만일 눌리는 키가 a라면
-    else if (event.key === 'a') {
-      if (count - 1 > 356) {
-        gameDisplay.querySelectorAll('div')[count].classList.remove('bg-green');
-        gameDisplay.querySelectorAll('div')[count - 1].classList.add('bg-green');
         count--
       }
     }
