@@ -8,6 +8,8 @@ const timeDisplay = articles[0];
 const descDisplay = articles[1];
 //* 게임을 표시하는 article요소를 gameDisplay에 담아줌
 const gameDisplay = articles[2];
+//* 게임이 끝났을 때 표시되는 article요소를 gameOverDisplay에 담아줌
+const gameOverDisplay = articles[3];
 //* clearInterval메서드 사용을 위한 setInterval에 이름을 지어줌
 let startTime = 0;
 let cloudTime = 0;
@@ -97,7 +99,12 @@ startBtn.addEventListener('click', () => {
 function bumpCheck(rainPosition, userPosition) {
   if(rainPosition < 374 && rainPosition > 356) {
     if(rainPosition === userPosition) {
-      console.log('충돌');
+      let timeScore = timeDisplay.childNodes[3].textContent;
+      timer.close(startTime);
+      timer.close(cloudTime);
+      gameDisplay.classList.replace('d-grid', 'd-none');
+      gameOverDisplay.classList.replace('d-none', 'd-flex');
+      gameOverDisplay.childNodes[1].textContent = `버틴 시간 : ${timeScore} 초`;
     }
   }
 }
