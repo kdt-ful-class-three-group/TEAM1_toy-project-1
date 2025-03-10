@@ -17,6 +17,7 @@ let cloudTime = 0;
 let userIndex = 0;
 //* 피한 개수
 let avoidCount = 0;
+let gameData = []
 
 /**
  * @description 게임표시 부분에 격자로 div요소 추가하는 함수
@@ -53,6 +54,8 @@ startBtn.addEventListener('click', () => {
     gameDisplay.classList.replace('d-grid', 'd-none');
     gameOverDisplay.childNodes[1].childNodes[3].textContent = `${timeScore} 초`;
     gameOverDisplay.childNodes[3].childNodes[3].textContent = `${avoidCount} 개`;
+    gameData.push(timeScore, avoidCount);
+    console.log(gameData);
   }
 
   // * gameOver라는 변수에 10초뒤에 게임화면은 가려지고, 게임오버 화면이 나타나는 코드를 담음.
