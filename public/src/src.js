@@ -15,6 +15,8 @@ let startTime = 0;
 let cloudTime = 0;
 //* count의 값을 받아온다. 사용자의 위치를 알기 위함
 let userIndex = 0;
+//* 피한 개수
+let avoidCount = 0;
 
 /**
  * @description 게임표시 부분에 격자로 div요소 추가하는 함수
@@ -96,6 +98,11 @@ startBtn.addEventListener('click', () => {
   timer.cloud();
 });
 
+/**
+ * @param {*} rainPosition 현재 빗방울의 위치 값
+ * @param {*} userPosition 현재 사용자의 위치 값
+ * @description 빗방울이 사용자와 닿으면 게임 오버 화면을 표시 해준다.
+ */
 function bumpCheck(rainPosition, userPosition) {
   if(rainPosition < 374 && rainPosition > 356) {
     if(rainPosition === userPosition) {
@@ -104,7 +111,10 @@ function bumpCheck(rainPosition, userPosition) {
       timer.close(cloudTime);
       gameDisplay.classList.replace('d-grid', 'd-none');
       gameOverDisplay.classList.replace('d-none', 'd-flex');
-      gameOverDisplay.childNodes[1].textContent = `버틴 시간 : ${timeScore} 초`;
+      gameOverDisplay.childNodes[1].childNodes[3].textContent = `${timeScore} 초`;
+      gameOverDisplay.childNodes[3].childNodes[3].textContent = `${avoidCount} 개`;
+    } else {
+      avoidCount++;
     }
   }
 }
