@@ -17,10 +17,11 @@ let cloudTime = 0;
 let userIndex = 365;
 //* 피한 개수
 let avoidCount = 0;
-let rainSpeed = 0;
 //* 비의 속도를 조절 speed1 : 생성되는 속도 speed2 : 사라지는 속도
 let speed1 = 300;
 let speed2 = 280;
+let gameData = []
+
 /**
  * @description 게임표시 부분에 격자로 div요소 추가하는 함수
  * @description 새로운 div요소를 만들고 해당 div요소에 클래스를 추가하며 div요소를 게임 표시 부분에 추가한다.
@@ -56,6 +57,8 @@ startBtn.addEventListener('click', () => {
     gameDisplay.classList.replace('d-grid', 'd-none');
     gameOverDisplay.childNodes[1].childNodes[3].textContent = `${timeScore} 초`;
     gameOverDisplay.childNodes[3].childNodes[3].textContent = `${avoidCount} 개`;
+    gameData.push(timeScore, avoidCount);
+    console.log(gameData);
   }
 
   // * gameOver라는 변수에 10초뒤에 게임화면은 가려지고, 게임오버 화면이 나타나는 코드를 담음.
@@ -173,7 +176,6 @@ const timer = {
    * @description 비구름을 기준으로 빗방울 생성
    */
   rain: function makeRain(rainCloudIndex) {
-    rainSpeed = Math.random();
     let rainIndex = rainCloudIndex;
     rainTime = setInterval(() => {
       rainIndex += 17;
