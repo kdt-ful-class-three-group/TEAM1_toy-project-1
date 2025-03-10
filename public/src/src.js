@@ -10,8 +10,6 @@ const descDisplay = articles[1];
 const gameDisplay = articles[2];
 //* 게임이 끝났을 때 표시되는 article요소를 gameOverDisplay에 담아줌
 const gameOverDisplay = articles[3];
-//* clearInterval메서드 사용을 위한 setInterval에 이름을 지어줌
-const gameOverDisplay = articles[3];
 
 let startTime = 0;
 let cloudTime = 0;
