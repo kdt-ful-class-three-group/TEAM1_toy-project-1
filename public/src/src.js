@@ -165,12 +165,14 @@ const timer = {
     let rainIndex = rainCloudIndex;
     rainTime = setInterval(() => {
       rainIndex += 17;
-      rain = gameDisplay.childNodes[rainIndex];
-      gameDisplay.childNodes[rainIndex].classList.add('bg-gray');
-      bumpCheck(rainIndex, userIndex);
-      setTimeout(() => {
-        gameDisplay.childNodes[rainIndex].classList.remove('bg-gray');
-      }, 500);
+      if(rainIndex < 374) {
+        rain = gameDisplay.childNodes[rainIndex];
+        gameDisplay.childNodes[rainIndex].classList.add('bg-gray');
+        bumpCheck(rainIndex, userIndex);
+        setTimeout(() => {
+          gameDisplay.childNodes[rainIndex].classList.remove('bg-gray');
+        }, 500);
+      }
     }, 1000);
   },
 }
