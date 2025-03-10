@@ -20,6 +20,8 @@ let avoidCount = 0;
 //* 비의 속도를 조절 speed1 : 생성되는 속도 speed2 : 사라지는 속도
 let speed1 = 300;
 let speed2 = 280;
+//* 빗방울과 사용자가 닿았는지 확인 (true:닿았다./false:닿지 않았다.)
+let isBump = false;
 let gameData = []
 
 /**
@@ -127,7 +129,8 @@ function bumpCheck(rainPosition, userPosition) {
       gameOverDisplay.classList.replace('d-none', 'd-flex');
       gameOverDisplay.childNodes[1].childNodes[3].textContent = `${timeScore} 초`;
       gameOverDisplay.childNodes[3].childNodes[3].textContent = `${avoidCount} 개`;
-    } else {
+      isBump = true;
+    } else if (!isBump) {
       avoidCount++;
     }
   }
