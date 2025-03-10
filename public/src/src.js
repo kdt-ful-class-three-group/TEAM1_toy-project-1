@@ -36,6 +36,20 @@ function makeGrid() {
   }
 }
 
+function makeForm() {
+  const form = document.createElement('form');
+  const input = document.createElement('input');
+  form.method = "post";
+  form.action = "/data";
+  form.submit();
+  input.type = "hidden";
+  input.name = "playTime"
+  console.log(gameData);
+  input.value = JSON.stringify(gameData);
+  form.append(input);
+  gameOverDisplay.appendChild(form);
+}
+
 //* 시작 버튼 클릭시 이벤트가 발생한다.
 startBtn.addEventListener('click', () => {
   //* 설명표시 article부분 display none으로 설정
