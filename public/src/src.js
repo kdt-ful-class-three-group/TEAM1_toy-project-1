@@ -40,8 +40,14 @@ startBtn.addEventListener('click', () => {
 
   // * count라는 변수에 365라는 수를 지정. => 365는 div의 하단 중앙을 뜻함. 
   let count = 365;
+  let gameOver = setTimeout(() => {
+      gameOverDisplay.classList.replace('d-none', 'd-flex');
+      gameDisplay.classList.replace('d-grid', 'd-none');
+    }, 1000);
+
   // * keydown이라는 동작을 실행했을 때 이벤트의 주체를 document즉 html문서 자체를 주체로 한다.
   document.addEventListener('keydown', (event) => {
+    clearTimeout(gameOver);
     // * 만일 눌리는 키가 오른쪽 화살표라면
     if (event.key === 'ArrowRight') {
       // * count + 1의 범위를 374 보다 적게 지정해준다. => 여기서 374는 div의 총 갯수를 의미한다. 
@@ -86,12 +92,7 @@ startBtn.addEventListener('click', () => {
         gameDisplay.querySelectorAll('div')[count - 1].classList.add('bg-green');
         count--
       }
-    } else {
-      setTimeout(() => {
-        gameOverDisplay.classList.replace('d-none', 'd-flex');
-        gameDisplay.classList.replace('d-grid', 'd-none');
-      }, 10000);
-    } 
+    }
   });
   timer.start();
   timer.cloud();
