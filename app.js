@@ -23,8 +23,14 @@ app.post('/data', (req, res) => {
     let ParData = qs.parse(data.toString());
     console.log(ParData);
     jsonData.push(ParData);
+   if(fs.existsSync('data.json')) {
+      jsonData = JSON.parse(fs.readFileSync('data.json'));
+      console.log(jsonData);
+      jsonData.push(ParData);
+    fs.writeFileSync('data.json', JSON.stringify(jsonData, null, 2), 'utf-8');
+    } else {
       fs.writeFileSync('data.json', JSON.stringify(jsonData, null, 2), 'utf-8');
-
+    }
 
   })
   req.on('end', () => {
