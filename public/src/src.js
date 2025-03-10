@@ -40,6 +40,7 @@ startBtn.addEventListener('click', () => {
 
   // * count라는 변수에 365라는 수를 지정. => 365는 div의 하단 중앙을 뜻함. 
   let count = 365;
+  // * gameOver라는 변수에 10초뒤에 게임화면은 가려지고, 게임오버 화면이 나타나는 코드를 담음.
   let gameOver = setTimeout(() => {
       gameOverDisplay.classList.replace('d-none', 'd-flex');
       gameDisplay.classList.replace('d-grid', 'd-none');
@@ -47,6 +48,7 @@ startBtn.addEventListener('click', () => {
 
   // * keydown이라는 동작을 실행했을 때 이벤트의 주체를 document즉 html문서 자체를 주체로 한다.
   document.addEventListener('keydown', (event) => {
+    // * 키보드 이벤트가 발생하면, gameOver가 초기화 되고,
     clearTimeout(gameOver);
     // * 만일 눌리는 키가 오른쪽 화살표라면
     if (event.key === 'ArrowRight'||event.key === 'd') {
@@ -59,6 +61,7 @@ startBtn.addEventListener('click', () => {
         gameDisplay.querySelectorAll('div')[count + 1].classList.add('bg-green');
         // * count는 점점 증가한다.
         count++
+        // * gameOver라는 변수에 다시 10초뒤에 게임오버화면이 뜨는 코드를 담음.
         gameOver = setTimeout(() => {
           gameOverDisplay.classList.replace('d-none', 'd-flex');
           gameDisplay.classList.replace('d-grid', 'd-none');
@@ -77,6 +80,7 @@ startBtn.addEventListener('click', () => {
         gameDisplay.querySelectorAll('div')[count - 1].classList.add('bg-green');
         // * count는 점점 감소한다.
         count--
+        // * gameOver라는 변수에 다시 10초뒤에 게임오버화면이 뜨는 코드를 담음.
         gameOver = setTimeout(() => {
           gameOverDisplay.classList.replace('d-none', 'd-flex');
           gameDisplay.classList.replace('d-grid', 'd-none');
