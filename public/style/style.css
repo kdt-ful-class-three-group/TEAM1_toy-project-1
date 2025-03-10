@@ -22,6 +22,7 @@
 .flex-column {flex-direction: column;}
 .j-center {justify-content: center;}
 .j-around {justify-content: space-around;}
+.j-evenly {justify-content: space-evenly;}
 .a-center {align-items: center;}
 .mb-2rem {margin-bottom: 2rem;}
 .pt-2rem {padding-top: 2rem;}
