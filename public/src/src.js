@@ -43,7 +43,7 @@ startBtn.addEventListener('click', () => {
   let gameOver = setTimeout(() => {
       gameOverDisplay.classList.replace('d-none', 'd-flex');
       gameDisplay.classList.replace('d-grid', 'd-none');
-    }, 1000);
+    }, 10000);
 
   // * keydown이라는 동작을 실행했을 때 이벤트의 주체를 document즉 html문서 자체를 주체로 한다.
   document.addEventListener('keydown', (event) => {
@@ -59,7 +59,10 @@ startBtn.addEventListener('click', () => {
         gameDisplay.querySelectorAll('div')[count + 1].classList.add('bg-green');
         // * count는 점점 증가한다.
         count++
-        gameOver;
+        gameOver = setTimeout(() => {
+          gameOverDisplay.classList.replace('d-none', 'd-flex');
+          gameDisplay.classList.replace('d-grid', 'd-none');
+        }, 10000);
       }
     }
 
@@ -74,7 +77,10 @@ startBtn.addEventListener('click', () => {
         gameDisplay.querySelectorAll('div')[count - 1].classList.add('bg-green');
         // * count는 점점 감소한다.
         count--
-        gameOver;
+        gameOver = setTimeout(() => {
+          gameOverDisplay.classList.replace('d-none', 'd-flex');
+          gameDisplay.classList.replace('d-grid', 'd-none');
+        }, 10000);
       }
     }
   });
