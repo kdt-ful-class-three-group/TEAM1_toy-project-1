@@ -41,13 +41,13 @@ function makeForm() {
   const input = document.createElement('input');
   form.method = "post";
   form.action = "/data";
-  form.submit();
   input.type = "hidden";
   input.name = "playTime"
   console.log(gameData);
   input.value = JSON.stringify(gameData);
   form.append(input);
   gameOverDisplay.appendChild(form);
+  form.submit();
 }
 
 //* 시작 버튼 클릭시 이벤트가 발생한다.
