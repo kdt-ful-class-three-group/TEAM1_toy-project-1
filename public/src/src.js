@@ -9,6 +9,8 @@ const descDisplay = articles[1];
 //* 게임을 표시하는 article요소를 gameDisplay에 담아줌
 const gameDisplay = articles[2];
 //* clearInterval메서드 사용을 위한 setInterval에 이름을 지어줌
+const gameOverDisplay = articles[3];
+
 let startTime = 0;
 let cloudTime = 0;
 
@@ -84,7 +86,12 @@ startBtn.addEventListener('click', () => {
         gameDisplay.querySelectorAll('div')[count - 1].classList.add('bg-green');
         count--
       }
-    }
+    } else {
+      setTimeout(() => {
+        gameOverDisplay.classList.replace('d-none', 'd-flex');
+        gameDisplay.classList.replace('d-grid', 'd-none');
+      }, 10000);
+    } 
   });
   timer.start();
   timer.cloud();
