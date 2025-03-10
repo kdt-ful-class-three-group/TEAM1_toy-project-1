@@ -8,6 +8,7 @@ import qs from 'querystring';
 //* 현재 폴더의 경로를 받아와 __dirname에 담았다. 
 const __dirname = path.resolve();
 const app = express();
+let jsonData = [];
 
 //* index파일을 불러올 때 필요한 파일을 참조한다.
 app.use('/public', express.static('public'));
@@ -19,9 +20,11 @@ app.get('/', (req, res) => {
 
 app.post('/data', (req, res) => {
   req.on('data', (data) => {
-    let postData = data.toString();
-    let ParData = qs.parse(postData);
+    let ParData = qs.parse(data.toString());
     console.log(ParData);
+    jsonData.push(ParData);
+      fs.writeFileSync('data.json', JSON.stringify(jsonData, null, 2), 'utf-8');
+
 
   })
   req.on('end', () => {
