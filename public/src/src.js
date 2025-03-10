@@ -8,9 +8,15 @@ const timeDisplay = articles[0];
 const descDisplay = articles[1];
 //* 게임을 표시하는 article요소를 gameDisplay에 담아줌
 const gameDisplay = articles[2];
+//* 게임이 끝났을 때 표시되는 article요소를 gameOverDisplay에 담아줌
+const gameOverDisplay = articles[3];
 //* clearInterval메서드 사용을 위한 setInterval에 이름을 지어줌
 let startTime = 0;
 let cloudTime = 0;
+//* count의 값을 받아온다. 사용자의 위치를 알기 위함
+let userIndex = 0;
+//* 피한 개수
+let avoidCount = 0;
 
 /**
  * @description 게임표시 부분에 격자로 div요소 추가하는 함수
@@ -85,10 +91,33 @@ startBtn.addEventListener('click', () => {
         count--
       }
     }
+    //* 사용자가 움직일 때마다 userIndex에 현재 사용자의 위치를 담아준다.
+    userIndex = count;
   });
   timer.start();
   timer.cloud();
 });
+
+/**
+ * @param {*} rainPosition 현재 빗방울의 위치 값
+ * @param {*} userPosition 현재 사용자의 위치 값
+ * @description 빗방울이 사용자와 닿으면 게임 오버 화면을 표시 해준다.
+ */
+function bumpCheck(rainPosition, userPosition) {
+  if(rainPosition < 374 && rainPosition > 356) {
+    if(rainPosition === userPosition) {
+      let timeScore = timeDisplay.childNodes[3].textContent;
+      timer.close(startTime);
+      timer.close(cloudTime);
+      gameDisplay.classList.replace('d-grid', 'd-none');
+      gameOverDisplay.classList.replace('d-none', 'd-flex');
+      gameOverDisplay.childNodes[1].childNodes[3].textContent = `${timeScore} 초`;
+      gameOverDisplay.childNodes[3].childNodes[3].textContent = `${avoidCount} 개`;
+    } else {
+      avoidCount++;
+    }
+  }
+}
 
 /**
  * @method start 0.00초로 타이머 동작을 시작하는 메서드
@@ -138,6 +167,7 @@ const timer = {
       rainIndex += 17;
       rain = gameDisplay.childNodes[rainIndex];
       gameDisplay.childNodes[rainIndex].classList.add('bg-gray');
+      bumpCheck(rainIndex, userIndex);
       setTimeout(() => {
         gameDisplay.childNodes[rainIndex].classList.remove('bg-gray');
       }, 500);
