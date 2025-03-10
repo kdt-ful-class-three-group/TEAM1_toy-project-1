@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
 
 app.post('/data', (req, res) => {
   req.on('data', (data) => {
-    console.log(data);
+    console.log(data.toString());
   })
   req.on('end', () => {
     res.sendFile(__dirname + '/views/index.html');
