@@ -44,10 +44,20 @@ startBtn.addEventListener('click', () => {
 
   // * count라는 변수에 365라는 수를 지정. => 365는 div의 하단 중앙을 뜻함. 
   let count = 365;
+  // * NoInput이라는 함수에 10초간 입력이 없을경우 실행 될 코드를 지정한다.
+  function NoInput() {
+    let timeScore = timeDisplay.childNodes[3].textContent;
+    timer.close(startTime);
+    timer.close(cloudTime);
+    gameOverDisplay.classList.replace('d-none', 'd-flex');
+    gameDisplay.classList.replace('d-grid', 'd-none');
+    gameOverDisplay.childNodes[1].childNodes[3].textContent = `${timeScore} 초`;
+    gameOverDisplay.childNodes[3].childNodes[3].textContent = `${avoidCount} 개`;
+  }
+
   // * gameOver라는 변수에 10초뒤에 게임화면은 가려지고, 게임오버 화면이 나타나는 코드를 담음.
   let gameOver = setTimeout(() => {
-      gameOverDisplay.classList.replace('d-none', 'd-flex');
-      gameDisplay.classList.replace('d-grid', 'd-none');
+    NoInput()
     }, 10000);
 
   // * keydown이라는 동작을 실행했을 때 이벤트의 주체를 document즉 html문서 자체를 주체로 한다.
@@ -67,8 +77,7 @@ startBtn.addEventListener('click', () => {
         count++
         // * gameOver라는 변수에 다시 10초뒤에 게임오버화면이 뜨는 코드를 담음.
         gameOver = setTimeout(() => {
-          gameOverDisplay.classList.replace('d-none', 'd-flex');
-          gameDisplay.classList.replace('d-grid', 'd-none');
+          NoInput();
         }, 10000);
       }
     }
@@ -86,8 +95,7 @@ startBtn.addEventListener('click', () => {
         count--
         // * gameOver라는 변수에 다시 10초뒤에 게임오버화면이 뜨는 코드를 담음.
         gameOver = setTimeout(() => {
-          gameOverDisplay.classList.replace('d-none', 'd-flex');
-          gameDisplay.classList.replace('d-grid', 'd-none');
+          NoInput();
         }, 10000);
       }
     }
