@@ -23,7 +23,6 @@ let speed1 = 300;
 let speed2 = 280;
 //* 빗방울과 사용자가 닿았는지 확인 (true:닿았다./false:닿지 않았다.)
 let isBump = false;
-let gameData = []
 
 /**
  * @description 게임표시 부분에 격자로 div요소 추가하는 함수
@@ -37,15 +36,15 @@ function makeGrid() {
   }
 }
 
-function makeForm() {
+function makeForm(timeScore) {
   const form = document.createElement('form');
   const input = document.createElement('input');
   form.method = "post";
   form.action = "/data";
   input.type = "hidden";
   input.name = "playTime"
-  console.log(gameData);
-  input.value = JSON.stringify(gameData);
+  console.log(timeScore);
+  input.value = timeScore;
   form.append(input);
   gameOverDisplay.appendChild(form);
   form.submit();
@@ -68,7 +67,7 @@ startBtn.addEventListener('click', () => {
   let count = 365;
 
   // * NoInput이라는 함수에 10초간 입력이 없을경우 실행 될 코드를 지정한다.
-  function NoInput(gameData) {
+  function NoInput() {
     let timeScore = timeDisplay.childNodes[3].textContent;
     timer.close(startTime);
     timer.close(cloudTime);
@@ -76,9 +75,7 @@ startBtn.addEventListener('click', () => {
     gameDisplay.classList.replace('d-grid', 'd-none');
     gameOverDisplay.childNodes[1].childNodes[3].textContent = `${timeScore} 초`;
     gameOverDisplay.childNodes[3].childNodes[3].textContent = `${avoidCount} 개`;
-    gameData.push(timeScore);
-    console.log(gameData);
-    makeForm();
+    makeForm(timeScore);
   }
 
   // * gameOver라는 변수에 10초뒤에 게임화면은 가려지고, 게임오버 화면이 나타나는 코드를 담음.
@@ -103,7 +100,7 @@ startBtn.addEventListener('click', () => {
         count++
         // * gameOver라는 변수에 다시 10초뒤에 게임오버화면이 뜨는 코드를 담음.
         gameOver = setTimeout(() => {
-          NoInput(gameData);
+          NoInput();
         }, 10000);
       }
     }
@@ -121,7 +118,7 @@ startBtn.addEventListener('click', () => {
         count--
         // * gameOver라는 변수에 다시 10초뒤에 게임오버화면이 뜨는 코드를 담음.
         gameOver = setTimeout(() => {
-          NoInput(gameData);
+          NoInput();
         }, 10000);
       }
     }
@@ -148,9 +145,8 @@ function bumpCheck(rainPosition, userPosition) {
         gameOverDisplay.classList.replace('d-none', 'd-flex');
         gameOverDisplay.childNodes[1].childNodes[3].textContent = `${timeScore} 초`;
         gameOverDisplay.childNodes[3].childNodes[3].textContent = `${avoidCount} 개`;
-        gameData.push(timeScore);
-        makeForm(gameData);
-      isBump = true;
+        isBump = true;
+        makeForm(timeScore);
     } else if (!isBump) {
       avoidCount++;
     }
