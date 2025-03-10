@@ -10,7 +10,7 @@ const descDisplay = articles[1];
 const gameDisplay = articles[2];
 //* 게임이 끝났을 때 표시되는 article요소를 gameOverDisplay에 담아줌
 const gameOverDisplay = articles[3];
-
+//* setInterval이름 지정
 let startTime = 0;
 let cloudTime = 0;
 //* count의 값을 받아온다. 사용자의 위치를 알기 위함
@@ -156,7 +156,7 @@ const timer = {
   /**
    * @description 0.00초로 타이머 동작
    */
-  start: function startTimer() {
+  start: function () {
     let miliSec = 0;
     startTime = setInterval(() => {
       const display = timeDisplay.childNodes[3];
@@ -167,13 +167,13 @@ const timer = {
    * @param {*} timer 타이머 동작 시 만들어진 interval 변수 명
    * @description 타이머 동작 종료
    */
-  close: function closeTimer(timer) {
+  close: function (timer) {
     clearInterval(timer);
   },
   /**
    * @description 비구름 생성
    */
-  cloud: function makeRainCloud() {
+  cloud: function () {
     let rainCloud = 0;
     cloudTime = setInterval(() => {
       rainCloud = Math.floor(Math.random() * 17);
@@ -188,7 +188,7 @@ const timer = {
    * @param {*} rainCloudIndex 비구름 번호
    * @description 비구름을 기준으로 빗방울 생성
    */
-  rain: function makeRain(rainCloudIndex) {
+  rain: function (rainCloudIndex) {
     let rainIndex = rainCloudIndex;
     rainTime = setInterval(() => {
       rainIndex += 17;
