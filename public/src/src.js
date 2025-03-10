@@ -59,6 +59,7 @@ startBtn.addEventListener('click', () => {
         gameDisplay.querySelectorAll('div')[count + 1].classList.add('bg-green');
         // * count는 점점 증가한다.
         count++
+        gameOver;
       }
     }
 
@@ -73,6 +74,7 @@ startBtn.addEventListener('click', () => {
         gameDisplay.querySelectorAll('div')[count - 1].classList.add('bg-green');
         // * count는 점점 감소한다.
         count--
+        gameOver;
       }
     }
   });
