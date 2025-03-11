@@ -1,5 +1,9 @@
+//* button태그들을 모두 받아와서 buttons에 담아줌
+const buttons = document.querySelectorAll('button');
 //* "시작 하기"버튼요소를 받아와서 startBtn에 담아줌
-const startBtn = document.querySelector('button');
+const startBtn = buttons[0];
+//* "다시하기" 버튼 요소를 받아와서 resetBtn에 담아줌
+const resetBtn = buttons[1];
 //* article태그들을 모두 받아와서 articles에 담아줌
 const articles = document.querySelectorAll('article');
 //* 시간을 표시하는 article요소를 timeDisplay에 담아줌
@@ -36,20 +40,23 @@ function makeGrid() {
   }
 }
 
+const form = document.createElement('form');
+
 function makeForm(timeScore) {
-  const form = document.createElement('form');
   const input = document.createElement('input');
   form.method = "post";
   form.action = "/data";
   input.type = "hidden";
   input.name = "playTime"
-  console.log(timeScore);
   input.value = timeScore;
   form.append(input);
   gameOverDisplay.appendChild(form);
-  form.submit();
 }
 
+//* 다시하기 버튼 클릭시 발생하는 이벤트로 클릭시 초 데이터 보내준다.
+resetBtn.addEventListener('click', () => {
+  form.submit();
+});
 
 //* 시작 버튼 클릭시 이벤트가 발생한다.
 startBtn.addEventListener('click', () => {
