@@ -34,7 +34,7 @@ app.post('/data', (req, res) => {
 
   })
   req.on('end', () => {
-    res.sendFile(__dirname + '/views/index.html');
+    res.redirect(302, 'http://localhost:3000/');
   })
 })
 
