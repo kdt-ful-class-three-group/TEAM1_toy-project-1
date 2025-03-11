@@ -1,3 +1,6 @@
+import { makeForm } from "./modules/makeForm.js";
+import { makeGrid } from "./modules/makeGrid.js";
+
 //* button태그들을 모두 받아와서 buttons에 담아줌
 const buttons = document.querySelectorAll('button');
 //* "시작 하기"버튼요소를 받아와서 startBtn에 담아줌
@@ -28,31 +31,9 @@ let speed2 = 280;
 //* 빗방울과 사용자가 닿았는지 확인 (true:닿았다./false:닿지 않았다.)
 let isBump = false;
 
-/**
- * @description 게임표시 부분에 격자로 div요소 추가하는 함수
- * @description 새로운 div요소를 만들고 해당 div요소에 클래스를 추가하며 div요소를 게임 표시 부분에 추가한다.
- */
-function makeGrid() {
-  for (let i = 0; i < 374; i++) {
-    const div = document.createElement('div');
-    div.classList.add('w-1rem', 'h-1rem');
-    gameDisplay.append(div);
-  }
-}
-
 const form = document.createElement('form');
 const input = document.createElement('input');
 
-
-function makeForm(timeScore) {
-  form.method = "post";
-  form.action = "/data";
-  input.type = "hidden";
-  input.name = "playTime"
-  input.value = timeScore;
-  form.append(input);
-  gameOverDisplay.appendChild(form);
-}
 
 //* 다시하기 버튼 클릭시 발생하는 이벤트로 클릭시 초 데이터 보내준다.
 resetBtn.addEventListener('click', () => {
@@ -65,7 +46,7 @@ startBtn.addEventListener('click', () => {
   descDisplay.style.display = 'none';
   //* 게임표시 article부분의 display none의 스타일을 grid 스타일로 변경한다.
   gameDisplay.classList.replace('d-none', 'd-grid');
-  makeGrid();
+  makeGrid(gameDisplay);
   // * gameDisplay안의 div들을 전부 불러와서, player에 담아줌.
   const player = gameDisplay.querySelectorAll('div');
   // * 366번째 div가 중앙 하단에 배치 되므로 초기에 시작 버튼 클릭시 화면이 표시될 때, 중앙 하단의 div가 초록색으로 표시되게 한다.
@@ -83,7 +64,7 @@ startBtn.addEventListener('click', () => {
     gameDisplay.classList.replace('d-grid', 'd-none');
     gameOverDisplay.childNodes[1].childNodes[3].textContent = `${timeScore} 초`;
     gameOverDisplay.childNodes[3].childNodes[3].textContent = `${avoidCount} 개`;
-    makeForm(timeScore);
+    makeForm(timeScore, form, input);
   }
 
   // * gameOver라는 변수에 10초뒤에 게임화면은 가려지고, 게임오버 화면이 나타나는 코드를 담음.
@@ -164,7 +145,7 @@ function bumpCheck(rainPosition, userPosition) {
       gameOverDisplay.childNodes[1].childNodes[3].textContent = `${timeScore} 초`;
       gameOverDisplay.childNodes[3].childNodes[3].textContent = `${avoidCount} 개`;
       isBump = true;
-      makeForm(timeScore);
+      makeForm(timeScore, form, input);
     } else if (!isBump) {
       avoidCount++;
     }
