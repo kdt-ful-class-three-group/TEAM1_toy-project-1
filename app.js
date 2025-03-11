@@ -1,6 +1,6 @@
 import express from 'express';
 import path from 'path';
-import fs from 'fs';
+import fs, { read } from 'fs';
 import qs from 'querystring';
 
 //? CommonJS를 사용하면 __dirname을 사용할 수 있다.
@@ -34,7 +34,7 @@ app.post('/data', (req, res) => {
 
   })
   req.on('end', () => {
-    res.redirect(302, 'http://localhost:3000');
+    res.sendFile(__dirname + '/views/index.html');
   })
 })
 
@@ -42,3 +42,10 @@ app.post('/data', (req, res) => {
 app.listen(3000, () => {
   console.log(`서버 실행 중.. (http://localhost:3000)`);
 })
+
+let bestTime = []
+let readData = JSON.parse(fs.readFileSync('data.json'));
+bestTime.push(readData);
+
+
+console.log(bestTime);
