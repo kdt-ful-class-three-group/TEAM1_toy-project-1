@@ -41,9 +41,10 @@ function makeGrid() {
 }
 
 const form = document.createElement('form');
+const input = document.createElement('input');
+
 
 function makeForm(timeScore) {
-  const input = document.createElement('input');
   form.method = "post";
   form.action = "/data";
   input.type = "hidden";
