@@ -1,6 +1,6 @@
 import express from 'express';
 import path from 'path';
-import fs, { read } from 'fs';
+import fs from 'fs';
 import qs from 'querystring';
 
 //? CommonJS를 사용하면 __dirname을 사용할 수 있다.
