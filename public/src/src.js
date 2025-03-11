@@ -1,3 +1,4 @@
+import { bumpCheck } from "./modules/bumpCheck.js";
 import { gameOver } from "./modules/gameOver.js";
 import { makeForm } from "./modules/makeForm.js";
 import { makeGrid } from "./modules/makeGrid.js";
@@ -23,7 +24,6 @@ const rankDisplay = articles[4];
 
 let startTime = 0;
 let cloudTime = 0;
-let rainTime = 0;
 //* count의 값을 받아온다. 사용자의 위치를 알기 위함
 let userIndex = 365;
 //* 피한 개수
@@ -38,9 +38,11 @@ const form = document.createElement('form');
 const input = document.createElement('input');
 
 
+
 //* 다시하기 버튼 클릭시 발생하는 이벤트로 클릭시 초 데이터 보내준다.
 resetBtn.addEventListener('click', () => {
-  form.submit();
+  let timeScore = timeDisplay.childNodes[3].textContent;
+  makeForm(gameOverDisplay, timeScore, form, input);
 });
 
 //* 시작 버튼 클릭시 이벤트가 발생한다.
@@ -57,9 +59,6 @@ startBtn.addEventListener('click', () => {
 
   // * count라는 변수에 365라는 수를 지정. => 365는 div의 하단 중앙을 뜻함. 
   let count = 365;
-
-
-
 
   // * gameOver라는 변수에 10초뒤에 게임화면은 가려지고, 게임오버 화면이 나타나는 코드를 담음.
   let timeOver = setTimeout(() => {
@@ -122,29 +121,6 @@ startBtn.addEventListener('click', () => {
   timer.cloud();
 });
 
-/**
- * @param {*} rainPosition 현재 빗방울의 위치 값
- * @param {*} userPosition 현재 사용자의 위치 값
- * @description 빗방울이 사용자와 닿으면 게임 오버 화면을 표시 해준다.
- */
-function bumpCheck(rainPosition, userPosition) {
-  if (rainPosition < 374 && rainPosition > 356) {
-    if (rainPosition === userPosition) {
-      let timeScore = timeDisplay.childNodes[3].textContent;
-      timer.close(startTime);
-      timer.close(cloudTime);
-      timer.close(rainTime);
-      gameDisplay.classList.replace('d-grid', 'd-none');
-      gameOverDisplay.classList.replace('d-none', 'd-flex');
-      gameOverDisplay.childNodes[1].childNodes[3].textContent = `${timeScore} 초`;
-      gameOverDisplay.childNodes[3].childNodes[3].textContent = `${avoidCount} 개`;
-      isBump = true;
-      makeForm(gameDisplay, timeScore, form, input);
-    } else if (!isBump) {
-      avoidCount++;
-    }
-  }
-}
 
 function printRank(rankArr) {
   rankDisplay.childNodes[3].childNodes[3].textContent = `${rankArr[0]}`;
@@ -214,11 +190,11 @@ const timer = {
    */
   rain: function (rainCloudIndex) {
     let rainIndex = rainCloudIndex;
-    rainTime = setInterval(() => {
+    setInterval(() => {
       rainIndex += 17;
       if (rainIndex < 374) {
         gameDisplay.childNodes[rainIndex].classList.add('bg-gray');
-        bumpCheck(rainIndex, userIndex);
+        bumpCheck(rainIndex, userIndex, timeDisplay, timer, startTime, cloudTime, gameOverDisplay, gameDisplay, avoidCount, isBump);
         setTimeout(() => {
           gameDisplay.childNodes[rainIndex].classList.remove('bg-gray');
         }, speed2);
