@@ -45,7 +45,13 @@ app.listen(3000, () => {
 
 let bestTime = []
 let readData = JSON.parse(fs.readFileSync('data.json'));
-bestTime.push(readData);
 
+for(let i = 0; i<readData.length; i++) {
+  bestTime.push(Object.values(readData[i]));
+}
+
+bestTime.sort((a, b) => {
+  return b - a;
+});
 
 console.log(bestTime);
