@@ -64,7 +64,7 @@ startBtn.addEventListener('click', () => {
     gameDisplay.classList.replace('d-grid', 'd-none');
     gameOverDisplay.childNodes[1].childNodes[3].textContent = `${timeScore} 초`;
     gameOverDisplay.childNodes[3].childNodes[3].textContent = `${avoidCount} 개`;
-    makeForm(timeScore, form, input);
+    makeForm(gameDisplay, timeScore, form, input);
   }
 
   // * gameOver라는 변수에 10초뒤에 게임화면은 가려지고, 게임오버 화면이 나타나는 코드를 담음.
@@ -145,13 +145,12 @@ function bumpCheck(rainPosition, userPosition) {
       gameOverDisplay.childNodes[1].childNodes[3].textContent = `${timeScore} 초`;
       gameOverDisplay.childNodes[3].childNodes[3].textContent = `${avoidCount} 개`;
       isBump = true;
-      makeForm(timeScore, form, input);
+      makeForm(gameDisplay, timeScore, form, input);
     } else if (!isBump) {
       avoidCount++;
     }
   }
 }
-
 /**
  * @method start 0.00초로 타이머 동작을 시작하는 메서드
  * @method close 타이머 동작을 종료하는 메서드
@@ -199,7 +198,6 @@ const timer = {
     rainTime = setInterval(() => {
       rainIndex += 17;
       if (rainIndex < 374) {
-        rain = gameDisplay.childNodes[rainIndex];
         gameDisplay.childNodes[rainIndex].classList.add('bg-gray');
         bumpCheck(rainIndex, userIndex);
         setTimeout(() => {
