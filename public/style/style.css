@@ -46,6 +46,7 @@
 .border-1px-dark {border: 1px solid #575252;}
 .cursor-pointer{cursor: pointer;}
 .text-right {text-align: right;}
+.text-center {text-align: center;}
 
 button:hover {
   background-color: #575252;

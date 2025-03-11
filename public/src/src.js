@@ -17,6 +17,8 @@ const descDisplay = articles[1];
 const gameDisplay = articles[2];
 //* 게임이 끝났을 때 표시되는 article요소를 gameOverDisplay에 담아줌
 const gameOverDisplay = articles[3];
+//* 랭크를 표시하는 article요소를 rankDisplay에 담아줌
+const rankDisplay = articles[4];
 
 let startTime = 0;
 let cloudTime = 0;
@@ -151,6 +153,31 @@ function bumpCheck(rainPosition, userPosition) {
     }
   }
 }
+
+function printRank(rankArr) {
+  rankDisplay.childNodes[3].childNodes[3].textContent = `${rankArr[0]}`;
+  rankDisplay.childNodes[5].childNodes[3].textContent = `${rankArr[1]}`;
+  rankDisplay.childNodes[7].childNodes[3].textContent = `${rankArr[2]}`;
+}
+
+//* 서버에 data.json파일을 요청
+const xhr = new XMLHttpRequest();
+xhr.open('GET', '/data.json');
+xhr.send();
+xhr.addEventListener('load', () => {
+  const playTimeObj = JSON.parse(xhr.responseText);
+  const playTimeArr = [];
+
+  playTimeObj.forEach((time) => {
+    playTimeArr.push(Object.values(time));
+  });
+
+  playTimeArr.sort((a, b) => {
+    return b - a;
+  })
+  printRank(playTimeArr);
+});
+
 /**
  * @method start 0.00초로 타이머 동작을 시작하는 메서드
  * @method close 타이머 동작을 종료하는 메서드
