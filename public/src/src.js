@@ -20,7 +20,7 @@ const gameDisplay = articles[2];
 //* 게임이 끝났을 때 표시되는 article요소를 gameOverDisplay에 담아줌
 const gameOverDisplay = articles[3];
 //* 랭크를 표시하는 article요소를 rankDisplay에 담아줌
-const rankDisplay = articles[4];
+const rankDisplay = document.querySelector('figure');
 
 let startTime = 0;
 let cloudTime = 0;

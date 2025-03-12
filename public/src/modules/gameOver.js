@@ -7,7 +7,7 @@ function gameOver(timeDisplay, timer, startTime, cloudTime, gameOverDisplay, gam
   gameOverDisplay.classList.replace('d-none', 'd-flex');
   gameDisplay.classList.replace('d-grid', 'd-none');
   gameOverDisplay.childNodes[1].childNodes[3].textContent = `${timeScore} 초`;
-  gameOverDisplay.childNodes[3].childNodes[3].textContent = `${avoidCount} 개`;
+  // gameOverDisplay.childNodes[3].childNodes[3].textContent = `${avoidCount} 개`;
 }
 
 export { gameOver };
