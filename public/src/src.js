@@ -74,7 +74,11 @@ startBtn.addEventListener('click', () => {
     // * 키보드 이벤트가 발생하면, gameOver가 초기화 되고,
     clearTimeout(timeOver);
     //* 
-    count = moveCharater(count, 0, event.key, bumpCheck);
+    if(moveCharater(count, event.key) === true) {
+      gameOver(timeDisplay, timer, startTime, cloudTime, gameOverDisplay, gameDisplay);
+    }else {
+      count = moveCharater(count, event.key);
+    }
     //* 사용자가 움직일 때마다 userIndex에 현재 사용자의 위치를 담아준다.
     userIndex = count;
   });

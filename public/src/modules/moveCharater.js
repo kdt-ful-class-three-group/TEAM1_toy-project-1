@@ -12,6 +12,9 @@ function moveCharater(userPosition, keyButton) {
     // * userPosition + 1의 범위를 374 보다 적게 지정해준다. => 여기서 374는 div의 총 갯수를 의미한다. 
     // * 이벤트 범위가 div바깥으로 나가지 않게 조절.
     if (userPosition + 1 < 374) {
+      if (gameDisplay.querySelectorAll('div')[userPosition + 1].classList.contains('bg-gray')) {
+        return true;
+      }
       // * 앞서 player로 지정해서 bg-green을 class로 넣어둔 div의 클래스를 remove하고,
       gameDisplay.querySelectorAll('div')[userPosition].classList.remove('bg-green');
       // * userPosition는 점점 증가한다.
@@ -25,6 +28,9 @@ function moveCharater(userPosition, keyButton) {
     // * userPosition - 1의 범위를 356 보다 크게 지정해준다. => 여기서 356는 div의 마지막 줄에서 두번째, 마지막 칸의 순서이다. 
     // * 이벤트 범위가 div바깥으로 나가지 않게 조절.
     if (userPosition - 1 > 356) {
+      if (gameDisplay.querySelectorAll('div')[userPosition - 1].classList.contains('bg-gray')) {
+        return true;
+      }
       // * 앞서 player로 지정해서 bg-green을 class로 넣어둔 div의 클래스를 remove하고,
       gameDisplay.querySelectorAll('div')[userPosition].classList.remove('bg-green');
       // * userPosition는 점점 감소한다.
