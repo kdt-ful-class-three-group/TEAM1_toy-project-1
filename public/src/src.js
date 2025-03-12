@@ -1,6 +1,7 @@
 import { gameOver } from "./modules/gameOver.js";
 import { makeForm } from "./modules/makeForm.js";
 import { makeGrid } from "./modules/makeGrid.js";
+import { printRank } from "./modules/printRank.js";
 
 //* button태그들을 모두 받아와서 buttons에 담아줌
 const buttons = document.querySelectorAll('button');
@@ -120,13 +121,6 @@ startBtn.addEventListener('click', () => {
   timer.cloud();
 });
 
-
-function printRank(rankArr) {
-  rankDisplay.childNodes[3].childNodes[3].textContent = `${rankArr[0]}`;
-  rankDisplay.childNodes[5].childNodes[3].textContent = `${rankArr[1]}`;
-  rankDisplay.childNodes[7].childNodes[3].textContent = `${rankArr[2]}`;
-}
-
 //* 서버에 data.json파일을 요청
 const xhr = new XMLHttpRequest();
 xhr.open('GET', '/data.json');
@@ -142,7 +136,7 @@ xhr.addEventListener('load', () => {
   playTimeArr.sort((a, b) => {
     return b - a;
   })
-  printRank(playTimeArr);
+  printRank(playTimeArr, rankDisplay);
 });
 
 /**
