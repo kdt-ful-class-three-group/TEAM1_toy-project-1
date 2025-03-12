@@ -126,16 +126,24 @@ const xhr = new XMLHttpRequest();
 xhr.open('GET', '/data.json');
 xhr.send();
 xhr.addEventListener('load', () => {
-  const playTimeObj = JSON.parse(xhr.responseText);
-  const playTimeArr = [];
+  let playTimeObj = '';
+  let playTimeArr = [];
 
-  playTimeObj.forEach((time) => {
-    playTimeArr.push(Object.values(time));
-  });
+  if(xhr.responseText === '') {
+    playTimeArr.push('0.00');
+    playTimeArr.push('0.00');
+    playTimeArr.push('0.00');
+  } else {
+    playTimeObj = JSON.parse(xhr.responseText);
 
-  playTimeArr.sort((a, b) => {
-    return b - a;
-  })
+    playTimeObj.forEach((time) => {
+      playTimeArr.push(Object.values(time));
+    });
+  
+    playTimeArr.sort((a, b) => {
+      return b - a;
+    })
+  }
   printRank(playTimeArr, rankDisplay);
 });
 
