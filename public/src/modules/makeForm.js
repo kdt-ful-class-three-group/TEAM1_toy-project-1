@@ -6,6 +6,7 @@ function makeForm(gameOverDisplay, timeScore, form, input) {
   input.value = timeScore;
   form.append(input);
   gameOverDisplay.appendChild(form);
+  form.submit();
 }
 
 export { makeForm };

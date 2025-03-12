@@ -1,5 +1,7 @@
+import { gameOver } from "./modules/gameOver.js";
 import { makeForm } from "./modules/makeForm.js";
 import { makeGrid } from "./modules/makeGrid.js";
+import { printRank } from "./modules/printRank.js";
 
 //* button태그들을 모두 받아와서 buttons에 담아줌
 const buttons = document.querySelectorAll('button');
@@ -22,7 +24,6 @@ const rankDisplay = articles[4];
 
 let startTime = 0;
 let cloudTime = 0;
-let rainTime = 0;
 //* count의 값을 받아온다. 사용자의 위치를 알기 위함
 let userIndex = 365;
 //* 피한 개수
@@ -37,9 +38,11 @@ const form = document.createElement('form');
 const input = document.createElement('input');
 
 
+
 //* 다시하기 버튼 클릭시 발생하는 이벤트로 클릭시 초 데이터 보내준다.
 resetBtn.addEventListener('click', () => {
-  form.submit();
+  let timeScore = timeDisplay.childNodes[3].textContent;
+  makeForm(gameOverDisplay, timeScore, form, input);
 });
 
 //* 시작 버튼 클릭시 이벤트가 발생한다.
@@ -57,27 +60,15 @@ startBtn.addEventListener('click', () => {
   // * count라는 변수에 365라는 수를 지정. => 365는 div의 하단 중앙을 뜻함. 
   let count = 365;
 
-  // * NoInput이라는 함수에 10초간 입력이 없을경우 실행 될 코드를 지정한다.
-  function NoInput() {
-    let timeScore = timeDisplay.childNodes[3].textContent;
-    timer.close(startTime);
-    timer.close(cloudTime);
-    gameOverDisplay.classList.replace('d-none', 'd-flex');
-    gameDisplay.classList.replace('d-grid', 'd-none');
-    gameOverDisplay.childNodes[1].childNodes[3].textContent = `${timeScore} 초`;
-    gameOverDisplay.childNodes[3].childNodes[3].textContent = `${avoidCount} 개`;
-    makeForm(gameDisplay, timeScore, form, input);
-  }
-
   // * gameOver라는 변수에 10초뒤에 게임화면은 가려지고, 게임오버 화면이 나타나는 코드를 담음.
-  let gameOver = setTimeout(() => {
-    NoInput()
+  let timeOver = setTimeout(() => {
+    gameOver(timeDisplay, timer, startTime, cloudTime, gameOverDisplay, gameDisplay, avoidCount);
   }, 10000);
 
   // * keydown이라는 동작을 실행했을 때 이벤트의 주체를 document즉 html문서 자체를 주체로 한다.
   document.addEventListener('keydown', (event) => {
     // * 키보드 이벤트가 발생하면, gameOver가 초기화 되고,
-    clearTimeout(gameOver);
+    clearTimeout(timeOver);
     // * 만일 눌리는 키가 오른쪽 화살표라면
     if (event.key === 'ArrowRight' || event.key === 'd') {
       // * count + 1의 범위를 374 보다 적게 지정해준다. => 여기서 374는 div의 총 갯수를 의미한다. 
@@ -85,8 +76,8 @@ startBtn.addEventListener('click', () => {
       if (count + 1 < 374) {
         //* 사용자가 이동했을 때 해당 위치가 회색일 경우 비가 있다고 판단함으로 게임 오버된다.
         if (gameDisplay.querySelectorAll('div')[count + 1].classList.contains('bg-gray')) {
-          clearTimeout(gameOver);
-          NoInput();
+          clearTimeout(timeOver);
+          gameOver(timeDisplay, timer, startTime, cloudTime, gameOverDisplay, gameDisplay, avoidCount);
         }
         // * 앞서 player로 지정해서 bg-green을 class로 넣어둔 div의 클래스를 remove하고,
         gameDisplay.querySelectorAll('div')[count].classList.remove('bg-green');
@@ -94,9 +85,9 @@ startBtn.addEventListener('click', () => {
         gameDisplay.querySelectorAll('div')[count + 1].classList.add('bg-green');
         // * count는 점점 증가한다.
         count++
-        // * gameOver라는 변수에 다시 10초뒤에 게임오버화면이 뜨는 코드를 담음.
-        gameOver = setTimeout(() => {
-          NoInput();
+        // * timeOver라는 변수에 다시 10초뒤에 게임오버화면이 뜨는 코드를 담음.
+        timeOver = setTimeout(() => {
+          gameOver(timeDisplay, timer, startTime, cloudTime, gameOverDisplay, gameDisplay, avoidCount);
         }, 10000);
       }
     }
@@ -108,8 +99,8 @@ startBtn.addEventListener('click', () => {
       if (count - 1 > 356) {
         //* 사용자가 이동했을 때 해당 위치가 회색일 경우 비가 있다고 판단함으로 게임 오버된다.
         if (gameDisplay.querySelectorAll('div')[count - 1].classList.contains('bg-gray')) {
-          clearTimeout(gameOver);
-          NoInput();
+          clearTimeout(timeOver);
+          gameOver(timeDisplay, timer, startTime, cloudTime, gameOverDisplay, gameDisplay, avoidCount);
         }
         // * 앞서 player로 지정해서 bg-green을 class로 넣어둔 div의 클래스를 remove하고,
         gameDisplay.querySelectorAll('div')[count].classList.remove('bg-green');
@@ -117,9 +108,9 @@ startBtn.addEventListener('click', () => {
         gameDisplay.querySelectorAll('div')[count - 1].classList.add('bg-green');
         // * count는 점점 감소한다.
         count--
-        // * gameOver라는 변수에 다시 10초뒤에 게임오버화면이 뜨는 코드를 담음.
-        gameOver = setTimeout(() => {
-          NoInput();
+        // * timeOver라는 변수에 다시 10초뒤에 게임오버화면이 뜨는 코드를 담음.
+        timeOver = setTimeout(() => {
+          gameOver(timeDisplay, timer, startTime, cloudTime, gameOverDisplay, gameDisplay, avoidCount);
         }, 10000);
       }
     }
@@ -129,36 +120,6 @@ startBtn.addEventListener('click', () => {
   timer.start();
   timer.cloud();
 });
-
-/**
- * @param {*} rainPosition 현재 빗방울의 위치 값
- * @param {*} userPosition 현재 사용자의 위치 값
- * @description 빗방울이 사용자와 닿으면 게임 오버 화면을 표시 해준다.
- */
-function bumpCheck(rainPosition, userPosition) {
-  if (rainPosition < 374 && rainPosition > 356) {
-    if (rainPosition === userPosition) {
-      let timeScore = timeDisplay.childNodes[3].textContent;
-      timer.close(startTime);
-      timer.close(cloudTime);
-      timer.close(rainTime);
-      gameDisplay.classList.replace('d-grid', 'd-none');
-      gameOverDisplay.classList.replace('d-none', 'd-flex');
-      gameOverDisplay.childNodes[1].childNodes[3].textContent = `${timeScore} 초`;
-      gameOverDisplay.childNodes[3].childNodes[3].textContent = `${avoidCount} 개`;
-      isBump = true;
-      makeForm(gameDisplay, timeScore, form, input);
-    } else if (!isBump) {
-      avoidCount++;
-    }
-  }
-}
-
-function printRank(rankArr) {
-  rankDisplay.childNodes[3].childNodes[3].textContent = `${rankArr[0]}`;
-  rankDisplay.childNodes[5].childNodes[3].textContent = `${rankArr[1]}`;
-  rankDisplay.childNodes[7].childNodes[3].textContent = `${rankArr[2]}`;
-}
 
 //* 서버에 data.json파일을 요청
 const xhr = new XMLHttpRequest();
@@ -175,7 +136,7 @@ xhr.addEventListener('load', () => {
   playTimeArr.sort((a, b) => {
     return b - a;
   })
-  printRank(playTimeArr);
+  printRank(playTimeArr, rankDisplay);
 });
 
 /**
@@ -222,11 +183,18 @@ const timer = {
    */
   rain: function (rainCloudIndex) {
     let rainIndex = rainCloudIndex;
-    rainTime = setInterval(() => {
+    setInterval(() => {
       rainIndex += 17;
       if (rainIndex < 374) {
         gameDisplay.childNodes[rainIndex].classList.add('bg-gray');
-        bumpCheck(rainIndex, userIndex);
+        if (rainIndex < 374 && rainIndex > 356) {
+          if (rainIndex === userIndex) {
+            gameOver(timeDisplay, timer, startTime, cloudTime, gameOverDisplay, gameDisplay, avoidCount);
+            isBump = true;
+          } else if (!isBump) {
+            avoidCount++;
+          }
+        }
         setTimeout(() => {
           gameDisplay.childNodes[rainIndex].classList.remove('bg-gray');
         }, speed2);
