@@ -1,4 +1,3 @@
-import { bumpCheck } from "./modules/bumpCheck.js";
 import { gameOver } from "./modules/gameOver.js";
 import { makeForm } from "./modules/makeForm.js";
 import { makeGrid } from "./modules/makeGrid.js";
@@ -194,7 +193,14 @@ const timer = {
       rainIndex += 17;
       if (rainIndex < 374) {
         gameDisplay.childNodes[rainIndex].classList.add('bg-gray');
-        bumpCheck(rainIndex, userIndex, timeDisplay, timer, startTime, cloudTime, gameOverDisplay, gameDisplay, avoidCount, isBump);
+        if (rainIndex < 374 && rainIndex > 356) {
+          if (rainIndex === userIndex) {
+            gameOver(timeDisplay, timer, startTime, cloudTime, gameOverDisplay, gameDisplay, avoidCount);
+            isBump = true;
+          } else if (!isBump) {
+            avoidCount++;
+          }
+        }
         setTimeout(() => {
           gameDisplay.childNodes[rainIndex].classList.remove('bg-gray');
         }, speed2);
