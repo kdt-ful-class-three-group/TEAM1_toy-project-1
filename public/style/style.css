@@ -6,12 +6,14 @@
 .h-1rem {height: 1rem;}
 .h-2rem {height: 2rem;}
 .h-5_5rem {height: 5.5rem;}
+.h-8rem {height: 8rem;}
 .h-25rem {height: 25rem;}
 .h-10rem {height: 10rem;}
 .h-44rem {height: 44rem;}
 .w-1rem {width: 1rem;}
 .w-4rem {width: 4rem;}
 .w-6rem {width: 6rem;}
+.w-8rem {width: 8rem;}
 .w-19rem {width: 19rem;}
 .d-block {display: block;}
 .d-none {display: none;}
@@ -22,8 +24,10 @@
 .flex-column {flex-direction: column;}
 .j-center {justify-content: center;}
 .j-around {justify-content: space-around;}
+.j-between {justify-content: space-between;}
 .j-evenly {justify-content: space-evenly;}
 .a-center {align-items: center;}
+.mt-1rem {margin-top: 1rem;}
 .mb-2rem {margin-bottom: 2rem;}
 .pt-2rem {padding-top: 2rem;}
 .pt-2_5rem {padding-top: 2.5rem;}
@@ -44,6 +48,7 @@
 .font-1_5rem {font-size: 1.5rem;}
 .border-none {border: none;}
 .border-1px-dark {border: 1px solid #575252;}
+.border-circle {border-radius: 50%;}
 .cursor-pointer{cursor: pointer;}
 .text-right {text-align: right;}
 .text-center {text-align: center;}
