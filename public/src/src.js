@@ -21,6 +21,10 @@ const gameDisplay = articles[2];
 const gameOverDisplay = articles[3];
 //* 랭크를 표시하는 article요소를 rankDisplay에 담아줌
 const rankDisplay = document.querySelector('figure');
+// * 왼쪽 이동 버튼
+const leftBtn = buttons[2];
+// * 오른쪽 이동 버튼
+const rightBtn = buttons[3];
 
 let startTime = 0;
 let cloudTime = 0;
@@ -117,6 +121,54 @@ startBtn.addEventListener('click', () => {
     //* 사용자가 움직일 때마다 userIndex에 현재 사용자의 위치를 담아준다.
     userIndex = count;
   });
+
+  leftBtn.addEventListener('click', () => {
+    clearTimeout(timeOver);
+      // * 이벤트 범위가 div바깥으로 나가지 않게 조절.
+      if (count - 1 > 356) {
+        //* 사용자가 이동했을 때 해당 위치가 회색일 경우 비가 있다고 판단함으로 게임 오버된다.
+        if (gameDisplay.querySelectorAll('div')[count - 1].classList.contains('bg-gray')) {
+          clearTimeout(timeOver);
+          gameOver(timeDisplay, timer, startTime, cloudTime, gameOverDisplay, gameDisplay, avoidCount);
+        }
+        // * 앞서 player로 지정해서 bg-green을 class로 넣어둔 div의 클래스를 remove하고,
+        gameDisplay.querySelectorAll('div')[count].classList.remove('bg-green');
+        // * 그 다음 순서의 div에 bg-green 클래스를 add한다.
+        gameDisplay.querySelectorAll('div')[count - 1].classList.add('bg-green');
+        // * count는 점점 감소한다.
+        count--
+        // * timeOver라는 변수에 다시 10초뒤에 게임오버화면이 뜨는 코드를 담음.
+        timeOver = setTimeout(() => {
+          gameOver(timeDisplay, timer, startTime, cloudTime, gameOverDisplay, gameDisplay, avoidCount);
+       }, 10000);
+     }
+    userIndex = count;
+  });
+
+  rightBtn.addEventListener('click', () => {
+    clearTimeout(timeOver);
+      // * count + 1의 범위를 374 보다 적게 지정해준다. => 여기서 374는 div의 총 갯수를 의미한다. 
+      // * 이벤트 범위가 div바깥으로 나가지 않게 조절.
+      if (count + 1 < 374) {
+        //* 사용자가 이동했을 때 해당 위치가 회색일 경우 비가 있다고 판단함으로 게임 오버된다.
+        if (gameDisplay.querySelectorAll('div')[count + 1].classList.contains('bg-gray')) {
+          clearTimeout(timeOver);
+          gameOver(timeDisplay, timer, startTime, cloudTime, gameOverDisplay, gameDisplay, avoidCount);
+        }
+        // * 앞서 player로 지정해서 bg-green을 class로 넣어둔 div의 클래스를 remove하고,
+        gameDisplay.querySelectorAll('div')[count].classList.remove('bg-green');
+        // * 그 다음 순서의 div에 bg-green 클래스를 add한다.
+        gameDisplay.querySelectorAll('div')[count + 1].classList.add('bg-green');
+        // * count는 점점 증가한다.
+        count++
+        // * timeOver라는 변수에 다시 10초뒤에 게임오버화면이 뜨는 코드를 담음.
+        timeOver = setTimeout(() => {
+          gameOver(timeDisplay, timer, startTime, cloudTime, gameOverDisplay, gameDisplay, avoidCount);
+        }, 10000);
+      }
+    userIndex = count;
+  })
+
   timer.start();
   timer.cloud();
 });
