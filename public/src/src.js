@@ -1,6 +1,7 @@
 import { gameOver } from "./modules/gameOver.js";
 import { makeForm } from "./modules/makeForm.js";
 import { makeGrid } from "./modules/makeGrid.js";
+import { moveCharater } from "./modules/moveCharater.js";
 import { printRank } from "./modules/printRank.js";
 
 //* button태그들을 모두 받아와서 buttons에 담아줌
@@ -69,51 +70,8 @@ startBtn.addEventListener('click', () => {
   document.addEventListener('keydown', (event) => {
     // * 키보드 이벤트가 발생하면, gameOver가 초기화 되고,
     clearTimeout(timeOver);
-    // * 만일 눌리는 키가 오른쪽 화살표라면
-    if (event.key === 'ArrowRight' || event.key === 'd') {
-      // * count + 1의 범위를 374 보다 적게 지정해준다. => 여기서 374는 div의 총 갯수를 의미한다. 
-      // * 이벤트 범위가 div바깥으로 나가지 않게 조절.
-      if (count + 1 < 374) {
-        //* 사용자가 이동했을 때 해당 위치가 회색일 경우 비가 있다고 판단함으로 게임 오버된다.
-        if (gameDisplay.querySelectorAll('div')[count + 1].classList.contains('bg-gray')) {
-          clearTimeout(timeOver);
-          gameOver(timeDisplay, timer, startTime, cloudTime, gameOverDisplay, gameDisplay, avoidCount);
-        }
-        // * 앞서 player로 지정해서 bg-green을 class로 넣어둔 div의 클래스를 remove하고,
-        gameDisplay.querySelectorAll('div')[count].classList.remove('bg-green');
-        // * 그 다음 순서의 div에 bg-green 클래스를 add한다.
-        gameDisplay.querySelectorAll('div')[count + 1].classList.add('bg-green');
-        // * count는 점점 증가한다.
-        count++
-        // * timeOver라는 변수에 다시 10초뒤에 게임오버화면이 뜨는 코드를 담음.
-        timeOver = setTimeout(() => {
-          gameOver(timeDisplay, timer, startTime, cloudTime, gameOverDisplay, gameDisplay, avoidCount);
-        }, 10000);
-      }
-    }
-
-    // * 만일 눌리는 키가 왼쪽 화살표라면
-    else if (event.key === 'ArrowLeft' || event.key === 'a') {
-      // * count - 1의 범위를 356 보다 크게 지정해준다. => 여기서 356는 div의 마지막 줄에서 두번째, 마지막 칸의 순서이다. 
-      // * 이벤트 범위가 div바깥으로 나가지 않게 조절.
-      if (count - 1 > 356) {
-        //* 사용자가 이동했을 때 해당 위치가 회색일 경우 비가 있다고 판단함으로 게임 오버된다.
-        if (gameDisplay.querySelectorAll('div')[count - 1].classList.contains('bg-gray')) {
-          clearTimeout(timeOver);
-          gameOver(timeDisplay, timer, startTime, cloudTime, gameOverDisplay, gameDisplay, avoidCount);
-        }
-        // * 앞서 player로 지정해서 bg-green을 class로 넣어둔 div의 클래스를 remove하고,
-        gameDisplay.querySelectorAll('div')[count].classList.remove('bg-green');
-        // * 그 다음 순서의 div에 bg-green 클래스를 add한다.
-        gameDisplay.querySelectorAll('div')[count - 1].classList.add('bg-green');
-        // * count는 점점 감소한다.
-        count--
-        // * timeOver라는 변수에 다시 10초뒤에 게임오버화면이 뜨는 코드를 담음.
-        timeOver = setTimeout(() => {
-          gameOver(timeDisplay, timer, startTime, cloudTime, gameOverDisplay, gameDisplay, avoidCount);
-        }, 10000);
-      }
-    }
+    //* 
+    count = moveCharater(count, event.key);
     //* 사용자가 움직일 때마다 userIndex에 현재 사용자의 위치를 담아준다.
     userIndex = count;
   });
@@ -129,7 +87,7 @@ xhr.addEventListener('load', () => {
   let playTimeObj = '';
   let playTimeArr = [];
 
-  if(xhr.responseText === '') {
+  if (xhr.responseText === '') {
     playTimeArr.push('0.00');
     playTimeArr.push('0.00');
     playTimeArr.push('0.00');
@@ -139,7 +97,7 @@ xhr.addEventListener('load', () => {
     playTimeObj.forEach((time) => {
       playTimeArr.push(Object.values(time));
     });
-  
+
     playTimeArr.sort((a, b) => {
       return b - a;
     })
