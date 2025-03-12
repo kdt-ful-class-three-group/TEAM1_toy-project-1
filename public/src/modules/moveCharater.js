@@ -14,10 +14,10 @@ function moveCharater(userPosition, keyButton) {
     if (userPosition + 1 < 374) {
       // * 앞서 player로 지정해서 bg-green을 class로 넣어둔 div의 클래스를 remove하고,
       gameDisplay.querySelectorAll('div')[userPosition].classList.remove('bg-green');
-      // * 그 다음 순서의 div에 bg-green 클래스를 add한다.
-      gameDisplay.querySelectorAll('div')[userPosition + 1].classList.add('bg-green');
       // * userPosition는 점점 증가한다.
       userPosition++
+      // * 그 다음 순서의 div에 bg-green 클래스를 add한다.
+      gameDisplay.querySelectorAll('div')[userPosition].classList.add('bg-green');
     }
   }
   // * 만일 눌리는 키가 왼쪽 화살표라면
@@ -27,10 +27,10 @@ function moveCharater(userPosition, keyButton) {
     if (userPosition - 1 > 356) {
       // * 앞서 player로 지정해서 bg-green을 class로 넣어둔 div의 클래스를 remove하고,
       gameDisplay.querySelectorAll('div')[userPosition].classList.remove('bg-green');
-      // * 그 다음 순서의 div에 bg-green 클래스를 add한다.
-      gameDisplay.querySelectorAll('div')[userPosition - 1].classList.add('bg-green');
       // * userPosition는 점점 감소한다.
       userPosition--
+      // * 그 다음 순서의 div에 bg-green 클래스를 add한다.
+      gameDisplay.querySelectorAll('div')[userPosition].classList.add('bg-green');
     }
   }
 
