@@ -1,3 +1,4 @@
+import { bumpCheck } from "./modules/bumpCheck.js";
 import { gameOver } from "./modules/gameOver.js";
 import { makeForm } from "./modules/makeForm.js";
 import { makeGrid } from "./modules/makeGrid.js";
