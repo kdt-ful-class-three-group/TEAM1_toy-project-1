@@ -25,22 +25,15 @@ function gameServer() {
   })
 
   app.post('/data', (req, res) => {
-    req.on('data', (data) => {
-      let ParData = qs.parse(data.toString());
-      console.log(ParData);
-      jsonData.push(ParData);
-      if (fs.existsSync('data.json')) {
-        jsonData = JSON.parse(fs.readFileSync('data.json'));
-        console.log(jsonData);
-        jsonData.push(ParData);
-        fs.writeFileSync('data.json', JSON.stringify(jsonData, null, 2), 'utf-8');
-      } else {
-        fs.writeFileSync('data.json', JSON.stringify(jsonData, null, 2), 'utf-8');
+    req.on('data', async (data) => {
+      const parseData = qs.parse(data.toString());
+      const sql = 'INSERT INTO rain_time (playtime) VALUES ($1)';
+      try {
+        await pool.query(sql, [parseData.playTime]);
+        return res.redirect(302, 'http://localhost:3000/');
+      } catch (error) {
+        throw error;
       }
-
-    })
-    req.on('end', () => {
-      res.redirect(302, 'http://localhost:3000/');
     })
   })
 

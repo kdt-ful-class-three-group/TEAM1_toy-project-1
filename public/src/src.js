@@ -157,7 +157,7 @@ xhr.addEventListener('load', () => {
       return b - a;
     })
   }
-  printRank(playTimeArr, rankDisplay);
+  printRank(rankDisplay);
 });
 
 /**
