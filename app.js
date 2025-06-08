@@ -2,6 +2,7 @@ import express from 'express';
 import path from 'path';
 import fs from 'fs';
 import qs from 'querystring';
+import { pool } from './DB.js';
 
 //? CommonJS를 사용하면 __dirname을 사용할 수 있다.
 //? package.json에 type:module을 추가할 경우 ES module이기 때문에 __dirname을 사용하게 된다면 에러가 발생한다.
@@ -41,6 +42,16 @@ function gameServer() {
     req.on('end', () => {
       res.redirect(302, 'http://localhost:3000/');
     })
+  })
+
+  app.get('/rank', async (req, res) => {
+    const sql = 'SELECT * FROM rain_time';
+    try {
+      const result = await pool.query(sql);
+      return res.json(result.rows);
+    } catch (error) {
+      throw error;
+    }
   })
 };
 
