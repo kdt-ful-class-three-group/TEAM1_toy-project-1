@@ -12,6 +12,7 @@ let jsonData = [];
 
 function gameServer() {
   //* index파일을 불러올 때 필요한 파일을 참조한다.
+  app.use(express.json()); 
   app.use('/public', express.static('public'));
   
   //* / 요청이 들어올 경우 index화면을 표시한다.
@@ -23,25 +24,40 @@ function gameServer() {
     res.sendFile(__dirname + '/data.json');
   })
   
-  app.post('/data', (req, res) => {
-    req.on('data', (data) => {
-      let ParData = qs.parse(data.toString());
-      console.log(ParData);
-      jsonData.push(ParData);
-     if(fs.existsSync('data.json')) {
-        jsonData = JSON.parse(fs.readFileSync('data.json'));
-        console.log(jsonData);
-        jsonData.push(ParData);
-      fs.writeFileSync('data.json', JSON.stringify(jsonData, null, 2), 'utf-8');
-      } else {
-        fs.writeFileSync('data.json', JSON.stringify(jsonData, null, 2), 'utf-8');
-      }
+  // app.post('/data', (req, res) => {
+  //   req.on('data', (data) => {
+  //     let ParData = qs.parse(data.toString());
+  //     console.log(ParData);
+  //     jsonData.push(ParData);
+  //    if(fs.existsSync('data.json')) {
+  //       jsonData = JSON.parse(fs.readFileSync('data.json'));
+  //       console.log(jsonData);
+  //       jsonData.push(ParData);
+  //     fs.writeFileSync('data.json', JSON.stringify(jsonData, null, 2), 'utf-8');
+  //     } else {
+  //       fs.writeFileSync('data.json', JSON.stringify(jsonData, null, 2), 'utf-8');
+  //     }
   
-    })
-    req.on('end', () => {
-      res.redirect(302, 'http://localhost:3000/');
-    })
-  })
+  //   })
+  //   req.on('end', () => {
+  //     res.redirect(302, 'http://localhost:3000/');
+  //   })
+  // })
+
+
+app.post('/data', (req, res) => {
+  const ParData = req.body; 
+  console.log(ParData);
+
+  if (fs.existsSync('data.json')) {
+    jsonData = JSON.parse(fs.readFileSync('data.json'));
+  }
+
+  jsonData.push(ParData);
+  fs.writeFileSync('data.json', JSON.stringify(jsonData, null, 2), 'utf-8');
+
+  res.redirect(302, 'http://localhost:3000/');
+});
   };
 
 if(!fs.existsSync('data.json')) {
